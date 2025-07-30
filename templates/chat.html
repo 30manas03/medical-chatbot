@@ -1,4 +1,4 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -21,9 +21,9 @@
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
 								<div class="img_cont">
-									<img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" class="rounded-circle user_img">
+									<img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" class="rounded-circle user_img"> -->
 									<!-- <img src="https://www.prdistribution.com/spirit/uploads/pressreleases/2019/newsreleases/d83341deb75c4c4f6b113f27b1e42cd8-chatbot-florence-already-helps-thousands-of-patients-to-remember-their-medication.png" class="rounded-circle user_img"> -->
-									<span class="online_icon"></span>
+									<!-- <span class="online_icon"></span>
 								</div>
 								<div class="user_info">
 									<span>Medical Chatbot</span>
@@ -78,4 +78,336 @@
 		</script>
         
     </body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MediBot - AI Medical Assistant</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-expand-lg fixed-top">
+		<div class="container">
+			<a class="navbar-brand d-flex align-items-center" href="#">
+				<div class="logo-container me-3">
+					<i class="fas fa-stethoscope"></i>
+				</div>
+				<span class="brand-text">MediBot</span>
+			</a>
+
+			<div class="navbar-nav ms-auto d-flex align-items-center">
+				<div class="theme-switcher me-3">
+					<button id="themeToggle" class="btn theme-btn" title="Toggle Theme">
+						<i class="fas fa-moon theme-icon"></i>
+					</button>
+				</div>
+				<div class="nav-item">
+					<span class="nav-text">AI Medical Assistant</span>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Main Chat Container -->
+	<div class="main-container">
+		<div class="container-fluid h-100">
+			<div class="row justify-content-center h-100">
+				<div class="col-md-10 col-lg-8 col-xl-6">
+					<div class="chat-container">
+						<!-- Chat Header -->
+						<div class="chat-header">
+							<div class="d-flex align-items-center">
+								<div class="bot-avatar me-3">
+									<i class="fas fa-robot"></i>
+									<span class="status-indicator"></span>
+								</div>
+								<div class="bot-info">
+									<h5 class="bot-name mb-1">Medical Assistant</h5>
+									<p class="bot-status mb-0">
+										<i class="fas fa-circle online-dot me-1"></i>
+										Ready to help with medical queries
+									</p>
+								</div>
+							</div>
+							<div class="chat-actions">
+								<button class="btn btn-sm action-btn" title="Clear Chat">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						</div>
+
+						<!-- Messages Area -->
+						<div id="messageArea" class="messages-container">
+							<div class="welcome-message">
+								<div class="welcome-content">
+									<div class="welcome-icon">
+										<i class="fas fa-hand-holding-heart"></i>
+									</div>
+									<h4>Welcome to MediBot</h4>
+									<p>Your AI-powered medical assistant is here to help. Ask me about symptoms,
+										medications, treatments, or general health questions.</p>
+									<div class="quick-actions">
+										<button class="btn btn-outline-primary btn-sm quick-btn"
+											data-message="What are the symptoms of diabetes?">
+											<i class="fas fa-heartbeat me-1"></i>Symptoms
+										</button>
+										<button class="btn btn-outline-primary btn-sm quick-btn"
+											data-message="Tell me about hypertension treatment">
+											<i class="fas fa-pills me-1"></i>Treatment
+										</button>
+										<button class="btn btn-outline-primary btn-sm quick-btn"
+											data-message="What is a healthy diet?">
+											<i class="fas fa-apple-alt me-1"></i>Nutrition
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Input Area -->
+						<div class="input-container">
+							<form id="messageForm" class="message-form">
+								<div class="input-group">
+									<input type="text" id="messageInput" name="msg"
+										placeholder="Ask me anything about health and medicine..." autocomplete="off"
+										class="form-control message-input" required />
+									<button type="submit" class="btn send-btn" id="sendBtn">
+										<i class="fas fa-paper-plane"></i>
+									</button>
+								</div>
+							</form>
+							<div class="input-footer">
+								<small class="text-muted">
+									<i class="fas fa-info-circle me-1"></i>
+									This AI assistant provides general medical information. Always consult healthcare
+									professionals for medical advice.
+								</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h6 class="footer-title">About MediBot</h6>
+					<p class="footer-text">
+						An AI-powered medical chatbot designed to provide instant health information and guidance.
+						Built with advanced NLP and medical knowledge base.
+					</p>
+				</div>
+				<div class="col-md-4">
+					<h6 class="footer-title">Instructions</h6>
+					<ul class="footer-list">
+						<li><i class="fas fa-check me-2"></i>Ask clear, specific medical questions</li>
+						<li><i class="fas fa-check me-2"></i>Use proper medical terminology when possible</li>
+						<li><i class="fas fa-check me-2"></i>Always verify information with healthcare providers</li>
+						<li><i class="fas fa-check me-2"></i>For emergencies, contact medical services immediately</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h6 class="footer-title">Disclaimer</h6>
+					<p class="footer-text">
+						This chatbot provides general medical information only and should not replace professional
+						medical advice,
+						diagnosis, or treatment. Always consult qualified healthcare providers for medical concerns.
+					</p>
+					<div class="footer-tech">
+						<small>Powered by LangChain • Groq • Pinecone</small>
+					</div>
+				</div>
+			</div>
+			<hr class="footer-divider">
+			<div class="row">
+				<div class="col-12 text-center">
+					<p class="copyright">
+						© 2025 MediBot. Built with <i class="fas fa-heart text-danger"></i> for better healthcare
+						accessibility.
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Loading Indicator -->
+	<div id="loadingIndicator" class="loading-indicator">
+		<div class="loading-content">
+			<div class="spinner-border text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+			<p class="mt-2">Analyzing your query...</p>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			// Theme Toggle Functionality
+			const themeToggle = document.getElementById('themeToggle');
+			const themeIcon = themeToggle.querySelector('.theme-icon');
+			const body = document.body;
+
+			// Load saved theme
+			const savedTheme = localStorage.getItem('theme') || 'dark';
+			body.setAttribute('data-theme', savedTheme);
+			updateThemeIcon(savedTheme);
+
+			themeToggle.addEventListener('click', function () {
+				const currentTheme = body.getAttribute('data-theme');
+				const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+				body.setAttribute('data-theme', newTheme);
+				localStorage.setItem('theme', newTheme);
+				updateThemeIcon(newTheme);
+			});
+
+			function updateThemeIcon(theme) {
+				if (theme === 'dark') {
+					themeIcon.className = 'fas fa-sun theme-icon';
+				} else {
+					themeIcon.className = 'fas fa-moon theme-icon';
+				}
+			}
+
+			// Quick action buttons
+			$('.quick-btn').on('click', function () {
+				const message = $(this).data('message');
+				$('#messageInput').val(message);
+				$('#messageForm').submit();
+			});
+
+			// Clear chat functionality
+			$('.action-btn').on('click', function () {
+				$('#messageArea').html(`
+                    <div class="welcome-message">
+                        <div class="welcome-content">
+                            <div class="welcome-icon">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                            <h4>Welcome to MediBot</h4>
+                            <p>Your AI-powered medical assistant is here to help. Ask me about symptoms, medications, treatments, or general health questions.</p>
+                            <div class="quick-actions">
+                                <button class="btn btn-outline-primary btn-sm quick-btn" data-message="What are the symptoms of diabetes?">
+                                    <i class="fas fa-heartbeat me-1"></i>Symptoms
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm quick-btn" data-message="Tell me about hypertension treatment">
+                                    <i class="fas fa-pills me-1"></i>Treatment
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm quick-btn" data-message="What is a healthy diet?">
+                                    <i class="fas fa-apple-alt me-1"></i>Nutrition
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+				// Re-bind quick button events
+				$('.quick-btn').on('click', function () {
+					const message = $(this).data('message');
+					$('#messageInput').val(message);
+					$('#messageForm').submit();
+				});
+			});
+
+			// Message form submission
+			$("#messageForm").on("submit", function (event) {
+				event.preventDefault();
+
+				const rawText = $("#messageInput").val().trim();
+				if (!rawText) return;
+
+				const date = new Date();
+				const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+				// Hide welcome message
+				$('.welcome-message').fadeOut();
+
+				// Add user message
+				const userHtml = `
+                    <div class="message user-message">
+                        <div class="message-content">
+                            <div class="message-text">${rawText}</div>
+                            <div class="message-time">${timeString}</div>
+                        </div>
+                        <div class="message-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                `;
+
+				$("#messageInput").val("");
+				$("#messageArea").append(userHtml);
+				$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
+
+				// Show loading indicator
+				$("#loadingIndicator").fadeIn();
+
+				// Send AJAX request
+				$.ajax({
+					data: { msg: rawText },
+					type: "POST",
+					url: "/get",
+				}).done(function (data) {
+					$("#loadingIndicator").fadeOut();
+
+					const botHtml = `
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-text">${data}</div>
+                                <div class="message-time">${timeString}</div>
+                            </div>
+                        </div>
+                    `;
+
+					$("#messageArea").append(botHtml);
+					$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
+				}).fail(function () {
+					$("#loadingIndicator").fadeOut();
+
+					const errorHtml = `
+                        <div class="message bot-message error-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-text">Sorry, I'm having trouble processing your request. Please try again.</div>
+                                <div class="message-time">${timeString}</div>
+                            </div>
+                        </div>
+                    `;
+
+					$("#messageArea").append(errorHtml);
+					$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
+				});
+			});
+
+			// Auto-resize input
+			$('#messageInput').on('input', function () {
+				this.style.height = 'auto';
+				this.style.height = (this.scrollHeight) + 'px';
+			});
+		});
+	</script>
+</body>
+
 </html>
