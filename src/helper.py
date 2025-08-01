@@ -2,9 +2,11 @@
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 # from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from typing import List
 from langchain.schema import Document
+import os
 
 
 #Extract Data From the PDF File
@@ -47,7 +49,19 @@ def text_split(extracted_data):
 
 
 #Download the Embeddings from HuggingFace 
+# def download_hugging_face_embeddings():
+#     # embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')  #this model return 384 dimensions
+#     embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/paraphrase-MiniLM-L6-v2')  #this model return 384 dimensions
+#     return embeddings
+
 def download_hugging_face_embeddings():
-    # embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')  #this model return 384 dimensions
-    embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/paraphrase-MiniLM-L6-v2')  #this model return 384 dimensions
+    """
+    Downloads embeddings from the Hugging Face Inference API.
+    """
+    # Make sure to set HUGGINGFACEHUB_API_TOKEN in your environment
+    embeddings = HuggingFaceEndpointEmbeddings(
+        repo_id="sentence-transformers/all-MiniLM-L6-v2",
+        task="feature-extraction",
+        huggingfacehub_api_token=os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+    )
     return embeddings
